@@ -228,7 +228,7 @@
 
 
       <!-- ========================= -->
-      <!-- LOADING STATE              -->
+      <!-- VERIFICATION STATE         -->
       <!-- ========================= -->
 
       <div id="loading-state">
@@ -240,8 +240,16 @@
         </h1>
 
         <p class="description">
-          We're confirming your NexTrade account...
+          Click the button below to verify your NexTrade account.
         </p>
+
+        <button
+          id="verify-email-button"
+          class="button"
+          type="button"
+        >
+          Verify My Email
+        </button>
 
       </div>
 
@@ -317,7 +325,7 @@
     Supabase JavaScript Client
   -->
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@Supabase/supabase-js@2"></script>
 
 
   <script>
@@ -363,6 +371,15 @@
     const errorState =
       document.getElementById("error-state");
 
+    const verifyEmailButton =
+      document.getElementById("verify-email-button");
+
+
+    /*
+     * ============================================
+     * SHOW SUCCESS
+     * ============================================
+     */
 
     function showSuccess() {
 
@@ -374,6 +391,12 @@
 
     }
 
+
+    /*
+     * ============================================
+     * SHOW ERROR
+     * ============================================
+     */
 
     function showError() {
 
@@ -396,6 +419,17 @@
 
       try {
 
+        /*
+         * Prevent multiple clicks while
+         * verification is taking place.
+         */
+
+        verifyEmailButton.disabled = true;
+
+        verifyEmailButton.textContent =
+          "Verifying...";
+
+
         const url =
           new URL(window.location.href);
 
@@ -412,7 +446,6 @@
          * OR
          *
          * code
-         *
          */
 
 
@@ -527,10 +560,41 @@
 
 
     /*
-     * START VERIFICATION
+     * ============================================
+     * PREPARE VERIFICATION
+     * ============================================
+     *
+     * We DO NOT automatically call verifyEmail().
+     *
+     * The user must explicitly click
+     * "Verify My Email".
      */
 
-    verifyEmail();
+    const url =
+      new URL(window.location.href);
+
+    const params =
+      url.searchParams;
+
+    const tokenHash =
+      params.get("token_hash");
+
+    const type =
+      params.get("type");
+
+
+    if (tokenHash && type) {
+
+      verifyEmailButton.addEventListener(
+        "click",
+        verifyEmail
+      );
+
+    } else {
+
+      showError();
+
+    }
 
   </script>
 
