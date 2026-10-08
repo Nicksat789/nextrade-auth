@@ -258,29 +258,24 @@
       <!-- SUCCESS STATE              -->
       <!-- ========================= -->
 
-      <div id="success-state" class="hidden">
 
-        <div class="icon success-icon">
-          ✓
-        </div>
 
-        <h1>
-          Email Verified
-        </h1>
-
-        <p class="description">
-          Your NexTrade account has been successfully verified.
-        </p>
-
-        <a
-          id="open-app-button"
-          class="button"
-          href="nextrade://auth/callback"
-        >
-          Open NexTrade
-        </a>
-
-      </div>
+            <div id="success-state" class="hidden">
+            
+              <div class="icon success-icon">
+                ✓
+              </div>
+            
+              <h1>
+                Email Verified
+              </h1>
+            
+              <p class="description">
+                Your NexTrade account has been successfully verified.
+                You can now return to the NexTrade app and log in.
+              </p>
+            
+            </div>
 
 
       <!-- ========================= -->
@@ -314,9 +309,10 @@
     </section>
 
 
-    <div class="footer">
-      © 2026 NexTrade. All rights reserved.
-    </div>
+        <div class="footer">
+        © <span id="current-year"></span> NexTrade. All rights reserved.
+      </div>
+    
 
   </main>
 
@@ -329,6 +325,9 @@
 
 
   <script>
+
+    document.getElementById("current-year").textContent =
+      new Date().getFullYear();
 
     /*
      * ============================================
